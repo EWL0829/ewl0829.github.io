@@ -19,8 +19,8 @@ tags:
 > 在`digitalOcean`中是这样描述小顶堆的，`A Min Heap Binary Tree is a Binary
 > Tree where the root node has the minimum key in the tree.`
 
-这也就是说，首先小顶堆是一个二叉树，而且这棵二叉树的根节点拥有最小的key，通常是使用
-数组来表示小顶堆的，格式如下：
+这也就是说，首先小顶堆是一个二叉树，而且这棵二叉树的根节点拥有最小的`key`，通常是使用
+数组来表示小顶堆的，格式如下(其中所有的索引运算必须向下取整)：
 
 |     node     | indexed value |
 |:------------:|:-------------:|
@@ -41,78 +41,91 @@ tags:
 
 ![img02.png](https://journaldev.nyc3.digitaloceanspaces.com/2020/02/min_heap_binary_tree_index.png)
 
+## 过程理解
+为了理解整个小顶堆排序的流程，可以跟着`digitalOcean`上的例子过一遍细节。
 
-## 手动实现
+先给树中放一个元素，值为`10`，如下图所示：
 
-跟随`digitalOcean`的示例，可以手动实现一个小顶堆，因为原文中不是使用`JavaScript`
-实现的，所以这里根据示例的设计方式改成`JavaScript`来实现，并且小顶堆本身的一些
-方法参考`React`源码中来实现，包括之前提到过的位运算也会一并使用，其中会拼贴一些
-`React Scheduler`的源码片段，可以稍作参考。
+![img03.png](https://journaldev.nyc3.digitaloceanspaces.com/2020/02/min_heap_one_element.png)
 
-在`React`源码(scheduler文件中的unstable_scheduleCallback方法)中数组节点的结构大致如下：
-```typescript
-interface ITask {
-  id: number;
-  callback: () => {};
-  priorityLevel: number;
-  startTime: number;
-  expirationTime: number;
-  sortIndex: number;
+然后在树中插入一个新的元素`40`，此时的树是满足以小顶堆的父子节点大小关系的，所以本次插入不需要
+进行节点的交换，如下图所示：
+
+![img04.png](https://journaldev.nyc3.digitaloceanspaces.com/2020/02/min_heap_two_elements.png)
+
+接下里再插入一个新的元素`50`， 仍旧是满足小顶堆的节点大小关系，无需交换，如下图：
+
+![img05.png](https://journaldev.nyc3.digitaloceanspaces.com/2020/02/min_heap_three_elements.png)
+
+此时，我们继续插入新元素`5`，在实际表现的数据结构中`5`是在数组的末位，在树的结构中，元素5是
+元素`40`的左子节点，`5`小于`40`显然是不满足小顶堆的节点关系了，我们需要做一次数据交换，代码如下：
+
+```javascript
+const minHeap = [10, 40, 50];
+const newNode = 5;
+let newNodeIndex = 3; // newNode即将插入的索引值,恰好与原有的minHeapLen相等
+
+// 这里的parentNodeIndex的索引值计算参考上面的表格，自己推导也可以
+// 在源码中为了提升性能，一般会使用位运算，所以这里会改写为 newNodeIndex - 1 >>> 1;
+const parentNodeIndex = Math.floor((newNodeIndex - 1) / 2);
+
+// 已知父子节点的索引值，直接将其交换即可
+minHeap[parentNodeIndex] = newNode;
+minHeap[newNodeIndex] = parentNode; // JavaScript中一般不需要预设数组的长度
+```
+
+根据上面的流程我们交换完`40`与`5`之后，整棵树仍然不满足小顶堆的节点关系，所以，我们需要
+继续向上直到到达整棵树的根节点，所以我们需要在`5`和`10`之间再进行一次与上面代码完全相同的
+数值交换，故而在上一步代码中，我们还需要在最后加上`newNodeIndex = parentNodeIndex;`
+这样才能继续在`5`和`10`之间进行交换（此时`5`的索引是原本`40`的索引，也就是`1`），完成`10`和`5`的
+交换后，树的结构就会变成下图所示的样子：
+
+![img06.png](https://journaldev.nyc3.digitaloceanspaces.com/2020/02/min_heap_after_swapping.png)
+
+这里给出排序的实现代码如下(详细逻辑参考`digitalOcean`)：
+
+```javascript
+function insert(heap, node) {
+  heap.push(node);
+  var curr = heap.length - 1;
+  while(curr > 0 && heap[(curr-1)>>>1] > heap[curr]) {
+    var temp = heap[(curr-1)>>>1];
+    heap[(curr-1)>>>1] = heap[curr];
+    heap[curr] = temp;
+    curr = (curr-1)>>>1;
+  }
+
+  return heap;
 }
 ```
 
-在实际参与大小比较的属性只有`id`以及`sortIndex`，所以简化一下，单个`node`
-改写为
-```typescript
-interface ITask {
-  id: number;
-  sortIndex: number;
-}
+给出一组测试数据，可以验证一下流程：
+```javascript
+var heap = [];
+insert(heap, 10);
+insert(heap, 40);
+insert(heap, 50);
+insert(heap, 5);
+insert(heap, 3);
+insert(heap, 1);
+insert(heap, 0);
+
+console.log(heap); // [0, 5, 1, 40, 10, 50, 3]
 ```
 
-`React`源码中包括了`push`、`pop`、`peek`、`compare`、`siftUp`以及`siftDown`
-几个方法，首先来实现最简单的`push`方法。
+![img07.jpeg](https://i.miji.bid/2023/08/11/ff323de627b78fa0725841b4c4dc1604.jpeg)
 
-1. push
-    往`MinHeap`中`push`节点时，每一次都需要进行排序，且总是从数组的末尾添加节点，所以
-    `push`的代码很简单：
-    ```javascript
-    function push(heap, node) {
-      heap.push(node);
-    }
-    ```
-    然而，每一次的push完成后，都必须保证当前的heap是符合小顶堆的格式要求的，所以每一次
-    push中都必须要做排序处理，所以代码变成了下面这样：
-    ```javascript
-    function push(heap, node) {
-      var index = heap.length;
-      heap.push(node);
-      siftUp(heap, node, index);
-    }
-    ```
-    其中的siftUp方法就是用于排序处理的，但是这里有一个点需要注意，index是在push之前
-    完成的，也就是说siftUp的第三个参数是node在进入heap之前的长度。那么来看一下React
-    是如何实现siftUp的
+>Tips: 起初在看到这个二叉树的图时，会稍微有一点疑惑，因为`3`的位置让我以为是否是
+> 代码编写有问题，但是后来仔细阅读了小顶堆的定义，其中仅强调了父节点和左右子节点
+> 之间的大小关系，所以即使图中第三层的叶子节点中的3是小于左子树中第二层的`5`，也仍
+> 然是满足小顶堆的，所以归根结底，这里会有这样的疑问是因为我提前将堆排序的内容和
+> 小/大顶堆的逻辑混淆了。 so just forget it~
+> 
 
-2. siftUp
-    
-   在看React源码对于siftUp的实现之前，可以先来理一下siftUp中可能会出现的逻辑，
-首先，已知的条件是当前heap的长度，以及当前要插入node的值的大小，结合上面提到的
-父节点与左右子节点之间的大小关系可以得知，在插入动作发生时，被插入的node需要从
-最末尾的节点开始进行对比，而且是逐层向上进行，直到根节点也就是数组的第一个节点。
+## 参考资料
+- [Min Heap in JavaScript](https://www.geeksforgeeks.org/min-heap-in-javascript/)
+- [Min Heap Binary Tree](https://www.digitalocean.com/community/tutorials/min-heap-binary-tree)
 
-
-    
-
-
-
-
-// parentNodeIndex = array[(i-1)/2] 无符号右移本质上就是在做除以2取整的操作，无符号右移总是返回一个正整数
-
-
-
-
-
-##
-
+额外备注一个仓库[JavaScript Algorithms](https://github.com/sisterAn/JavaScript-Algorithms)
+，看更新时间和`issues`数量，应该还不错。
 
