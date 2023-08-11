@@ -4,7 +4,7 @@ title: 2023-08-11-关于React Scheduler中的小顶堆算法
 subtitle: React调度器中使用到的算法
 date: 2023-08-11
 author: EWL
-header-img: img/post-bg-coffee.jpg
+header-img: img/post-bg-coffee.jpeg
 catalog: true
 tags:
   - 算法
