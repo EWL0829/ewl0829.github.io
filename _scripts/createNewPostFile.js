@@ -24,6 +24,6 @@ fs.writeFile(markdownFilename, '', (err) => {
     if (err) {
         console.error('Error creating Markdown file:', err);
     } else {
-        console.log(`Markdown file "${markdownFilename}" created successfully.`);
+        console.log(pc.green(`Markdown file "${markdownFilename}" created successfully.`));
     }
 });

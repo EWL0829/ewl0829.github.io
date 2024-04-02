@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9565992-89f2-4c5c-85e0-8cf3058f83c2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/_posts/2024-04-01-随笔.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_scripts/createNewPostFile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_posts/2024-04-02-49年进国军之C++学习01.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/2023-11-14-Qt5学习.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_scripts/createNewPostFile.js" beforeDir="false" afterPath="$PROJECT_DIR$/_scripts/createNewPostFile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +110,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "settings.nodejs",
+    "settings.editor.selected.configurable": "editing.templates",
     "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
@@ -132,7 +129,7 @@
       <workItem from="1548405228587" duration="849000" />
       <workItem from="1557310048635" duration="187000" />
       <workItem from="1711939867023" duration="4435000" />
-      <workItem from="1711952366758" duration="642000" />
+      <workItem from="1711952366758" duration="3581000" />
     </task>
     <servers />
   </component>
