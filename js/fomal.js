@@ -2785,11 +2785,11 @@ var now = new Date();
 function createtime() {
   // 当前时间
   now.setTime(now.getTime() + 1000);
-  var start = new Date("08/01/2022 00:00:00"); // 旅行者1号开始计算的时间
+  var start = new Date("02/10/2025 00:00:00"); // 旅行者1号开始计算的时间
   var dis = Math.trunc(23400000000 + ((now - start) / 1000) * 17); // 距离=秒数*速度 记住转换毫秒
   var unit = (dis / 149600000).toFixed(6);  // 天文单位
   // 网站诞生时间
-  var grt = new Date("08/09/2022 00:00:00");
+  var grt = new Date("02/10/2025 00:00:00");
   var days = (now - grt) / 1e3 / 60 / 60 / 24,
     dnum = Math.floor(days),
     hours = (now - grt) / 1e3 / 60 / 60 - 24 * dnum,
@@ -2820,57 +2820,58 @@ setInterval(() => {
 
 
 /* fps检测 start */
-if (window.localStorage.getItem("fpson") == undefined || window.localStorage.getItem("fpson") == "1") {
-  var rAF = function () {
-    return (
-      window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
-      function (callback) {
-        window.setTimeout(callback, 1000 / 60);
-      }
-    );
-  }();
-  var frame = 0;
-  var allFrameCount = 0;
-  var lastTime = Date.now();
-  var lastFameTime = Date.now();
-  var loop = function () {
-    var now = Date.now();
-    var fs = (now - lastFameTime);
-    var fps = Math.round(1000 / fs);
-
-    lastFameTime = now;
-    // 不置 0，在动画的开头及结尾记录此值的差值算出 FPS
-    allFrameCount++;
-    frame++;
-
-    if (now > 1000 + lastTime) {
-      var fps = Math.round((frame * 1000) / (now - lastTime));
-      if (fps <= 5) {
-        var kd = `<span style="color:#bd0000">卡成ppt🤢</span>`
-      } else if (fps <= 15) {
-        var kd = `<span style="color:red">电竞级帧率😖</span>`
-      } else if (fps <= 25) {
-        var kd = `<span style="color:orange">有点难受😨</span>`
-      } else if (fps < 35) {
-        var kd = `<span style="color:#9338e6">不太流畅🙄</span>`
-      } else if (fps <= 45) {
-        var kd = `<span style="color:#08b7e4">还不错哦😁</span>`
-      } else {
-        var kd = `<span style="color:#39c5bb">十分流畅🤣</span>`
-      }
-      document.getElementById("fps").innerHTML = `FPS:${fps} ${kd}`;
-      frame = 0;
-      lastTime = now;
-    };
-
-    rAF(loop);
-  }
-
-  loop();
-} else {
-  document.getElementById("fps").style = "display:none!important"
-}
+// 我不需要帧数显示，所以注释掉了
+// if (window.localStorage.getItem("fpson") == undefined || window.localStorage.getItem("fpson") == "1") {
+//   var rAF = function () {
+//     return (
+//       window.requestAnimationFrame ||
+//       window.webkitRequestAnimationFrame ||
+//       function (callback) {
+//         window.setTimeout(callback, 1000 / 60);
+//       }
+//     );
+//   }();
+//   var frame = 0;
+//   var allFrameCount = 0;
+//   var lastTime = Date.now();
+//   var lastFameTime = Date.now();
+//   var loop = function () {
+//     var now = Date.now();
+//     var fs = (now - lastFameTime);
+//     var fps = Math.round(1000 / fs);
+//
+//     lastFameTime = now;
+//     // 不置 0，在动画的开头及结尾记录此值的差值算出 FPS
+//     allFrameCount++;
+//     frame++;
+//
+//     if (now > 1000 + lastTime) {
+//       var fps = Math.round((frame * 1000) / (now - lastTime));
+//       if (fps <= 5) {
+//         var kd = `<span style="color:#bd0000">卡成ppt🤢</span>`
+//       } else if (fps <= 15) {
+//         var kd = `<span style="color:red">电竞级帧率😖</span>`
+//       } else if (fps <= 25) {
+//         var kd = `<span style="color:orange">有点难受😨</span>`
+//       } else if (fps < 35) {
+//         var kd = `<span style="color:#9338e6">不太流畅🙄</span>`
+//       } else if (fps <= 45) {
+//         var kd = `<span style="color:#08b7e4">还不错哦😁</span>`
+//       } else {
+//         var kd = `<span style="color:#39c5bb">十分流畅🤣</span>`
+//       }
+//       document.getElementById("fps").innerHTML = `FPS:${fps} ${kd}`;
+//       frame = 0;
+//       lastTime = now;
+//     };
+//
+//     rAF(loop);
+//   }
+//
+//   loop();
+// } else {
+//   document.getElementById("fps").style = "display:none!important"
+// }
 /* fps检测 end */
 
 //----------------------------------------------------------------
