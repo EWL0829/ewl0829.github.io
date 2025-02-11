@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://ewl0829.github.io/posts/a14472ee.html</loc>
+    
+    <lastmod>2025-02-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://ewl0829.github.io/posts/73f1e113.html</loc>
     
     <lastmod>2025-02-11</lastmod>
@@ -257,6 +266,13 @@
   
   <url>
     <loc>https://ewl0829.github.io/tags/%E7%85%A7%E6%98%8E%E5%95%86%E5%BA%97/</loc>
+    <lastmod>2025-02-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ewl0829.github.io/tags/Dart/</loc>
     <lastmod>2025-02-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
