@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>flutter学习笔记系列开篇</title>
+      <link href="/posts/73f1e113.html"/>
+      <url>/posts/73f1e113.html</url>
+      
+        <content type="html"><![CDATA[<h1>为什么写</h1><p>在2024年中，我才正式开始接触flutter，在接下来接近大半年的时间里，我一直在学习并使用flutter<br>完成手头的项目。所以在2025年年初，我决定把去年大半年的学习过程整理一下。</p><h1>写什么</h1><p>主要划分为以下三个部分：</p><ul><li>flutter基础知识<ul><li>dart语言学习</li><li>flutter布局/逻辑(此处对标我在学习前端时的html布局/js逻辑)</li></ul></li><li>flutter状态管理工具<ul><li>riverPod(在最初学习时，我使用的是provider，后来发现riverPod更好用，所以会着墨多一些)</li></ul></li><li>flutter的跨端开发<ul><li>android</li><li>iOS</li><li>HarmonyOS(基于3.7.12版本的支持)</li></ul></li></ul><p>由于个人的知识水平限制，所以以上相关的内容可能会错漏，仅作自己学习沉淀使用，如有不合理、不严谨<br>或者错误的部分，敬请谅解。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Coding </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> flutter </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于最近看的书</title>
       <link href="/posts/4900def7.html"/>
       <url>/posts/4900def7.html</url>
@@ -77,31 +102,6 @@
         <tags>
             
             <tag> 真三国无双·起源 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>flutter学习笔记系列01</title>
-      <link href="/posts/216cfbdf.html"/>
-      <url>/posts/216cfbdf.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> Coding </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> flutter </tag>
             
         </tags>
       

@@ -6,7 +6,7 @@
   <link href="https://ewl0829.github.io/atom.xml" rel="self"/>
   
   <link href="https://ewl0829.github.io/"/>
-  <updated>2025-02-10T10:14:27.631Z</updated>
+  <updated>2025-02-11T06:32:58.915Z</updated>
   <id>https://ewl0829.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>flutter学习笔记系列开篇</title>
+    <link href="https://ewl0829.github.io/posts/73f1e113.html"/>
+    <id>https://ewl0829.github.io/posts/73f1e113.html</id>
+    <published>2025-02-11T06:32:54.000Z</published>
+    <updated>2025-02-11T06:32:58.915Z</updated>
+    
+    <content type="html"><![CDATA[<h1>为什么写</h1><p>在2024年中，我才正式开始接触flutter，在接下来接近大半年的时间里，我一直在学习并使用flutter<br>完成手头的项目。所以在2025年年初，我决定把去年大半年的学习过程整理一下。</p><h1>写什么</h1><p>主要划分为以下三个部分：</p><ul><li>flutter基础知识<ul><li>dart语言学习</li><li>flutter布局/逻辑(此处对标我在学习前端时的html布局/js逻辑)</li></ul></li><li>flutter状态管理工具<ul><li>riverPod(在最初学习时，我使用的是provider，后来发现riverPod更好用，所以会着墨多一些)</li></ul></li><li>flutter的跨端开发<ul><li>android</li><li>iOS</li><li>HarmonyOS(基于3.7.12版本的支持)</li></ul></li></ul><p>由于个人的知识水平限制，所以以上相关的内容可能会错漏，仅作自己学习沉淀使用，如有不合理、不严谨<br>或者错误的部分，敬请谅解。</p>]]></content>
+    
+    
+    <summary type="html">flutter学习笔记系列的一个简要介绍</summary>
+    
+    
+    
+    <category term="Coding" scheme="https://ewl0829.github.io/categories/Coding/"/>
+    
+    
+    <category term="flutter" scheme="https://ewl0829.github.io/tags/flutter/"/>
+    
+  </entry>
   
   <entry>
     <title>关于最近看的书</title>
@@ -70,23 +91,6 @@
     
     
     <category term="真三国无双·起源" scheme="https://ewl0829.github.io/tags/%E7%9C%9F%E4%B8%89%E5%9B%BD%E6%97%A0%E5%8F%8C%C2%B7%E8%B5%B7%E6%BA%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>flutter学习笔记系列01</title>
-    <link href="https://ewl0829.github.io/posts/216cfbdf.html"/>
-    <id>https://ewl0829.github.io/posts/216cfbdf.html</id>
-    <published>2025-02-10T09:23:54.000Z</published>
-    <updated>2025-02-10T10:14:27.629Z</updated>
-    
-    
-    
-    
-    <category term="Coding" scheme="https://ewl0829.github.io/categories/Coding/"/>
-    
-    
-    <category term="flutter" scheme="https://ewl0829.github.io/tags/flutter/"/>
     
   </entry>
   
