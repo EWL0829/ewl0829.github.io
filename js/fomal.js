@@ -674,9 +674,10 @@ if (document.body.clientWidth > 992) {
         zoom: 0.9,
         borderRadius: 5 + 'px',
         right: 55.6 + 'px',
-        nekoImg: "https://bu.dusays.com/2022/07/20/62d812db74be9.png",
+        nekoImg: "https://s2.loli.net/2025/02/11/AGj3HzSLnORIs9i.png",
+        // nekoImg: "https://bu.dusays.com/2022/07/20/62d812db74be9.png",
         hoverMsg: "春天啦~",
-        color: "var(--theme-color)",
+        color: "#ffffff",
         during: 500,
         blog_body: "body",
       };
@@ -766,23 +767,23 @@ if (document.body.clientWidth > 992) {
     }
     );
     //自定义（去掉以下注释，并注释掉其他的查看效果）
-    /*
-    $("#myscoll").nekoScroll({
-        nekoname:'neko1', //nekoname，相当于id
-        nekoImg:'img/猫咪.png', //neko的背景图片
-        scImg:"img/绳1.png", //绳子的背景图片
-        bgcolor:'#1e90ff', //背景颜色，没有绳子背景图片时有效
-        zoom:0.9, //绳子长度的缩放值
-        hoverMsg:'你好~喵', //鼠标浮动到neko上方的对话框信息
-        right:'100px', //距离页面右边的距离
-        fontFamily:'楷体', //对话框字体
-        fontSize:'14px', //对话框字体的大小
-        color:'#1e90ff', //对话框字体颜色
-        scroWidth:'8px', //绳子的宽度
-        z_index:100, //不用解释了吧
-        during:1200, //从顶部到底部滑动的时长
-    });
-    */
+
+    // $("#myscoll").nekoScroll({
+    //     nekoname:'neko1', //nekoname，相当于id
+    //     nekoImg:'https://s2.loli.net/2025/02/11/AGj3HzSLnORIs9i.png', //neko的背景图片
+    //     scImg:"img/绳1.png", //绳子的背景图片
+    //     bgcolor:'#ffffff', //背景颜色，没有绳子背景图片时有效
+    //     zoom:0.9, //绳子长度的缩放值
+    //     hoverMsg:'你好~喵', //鼠标浮动到neko上方的对话框信息
+    //     right:'100px', //距离页面右边的距离
+    //     fontFamily:'楷体', //对话框字体
+    //     fontSize:'14px', //对话框字体的大小
+    //     color:'#ffffff', //对话框字体颜色
+    //     scroWidth:'8px', //绳子的宽度
+    //     z_index:100, //不用解释了吧
+    //     during:1200, //从顶部到底部滑动的时长
+    // });
+
   })
 }
 
