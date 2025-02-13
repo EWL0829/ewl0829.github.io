@@ -3493,124 +3493,6 @@ h1.page-title + .tag-cloud-list {
     transform: scale(0.7);
   }
 }
-:root {
-  --card-friend-class-desc-bgcolor: #e7e7e7;
-  --card-friend-name-color: #000;
-  --card-friend-item-hover: var(--text-bg-hover);
-  --card-friend-descr-color: #797979;
-}
-[data-theme="dark"] {
-  --card-friend-class-desc-bgcolor: #111;
-  --card-friend-name-color: #fff;
-  --card-friend-item-hover: var(--text-bg-hover);
-  --card-friend-descr-color: #797979;
-}
-#aside-content .card-widget.card-friend-link {
-  padding: 20px;
-}
-.card-widget.card-friend-link .card-friend-link-container {
-  max-height: 460px;
-  overflow: scroll;
-}
-.card-widget.card-friend-link .card-friend-link-container::-webkit-scrollbar {
-  display: none;
-}
-.card-widget.card-friend-link summary.card-friend-class-desc {
-  padding: 0px 15px;
-}
-.card-widget.card-friend-link details.card-friend-class-name[open] summary.card-friend-class-desc {
-  position: sticky;
-  top: 0px;
-  background: var(--card-friend-class-desc-bgcolor);
-  z-index: 1;
-}
-.card-widget.card-friend-link a.card-friend-item {
-  padding: 0px 15px;
-  height: 60px;
-  width: auto;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
-  display: flex;
-  -webkit-box-align: center;
-  -moz-box-align: center;
-  -o-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-box-lines: single;
-  -moz-box-lines: single;
-  -o-box-lines: single;
-  -webkit-flex-wrap: nowrap;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-}
-.card-widget.card-friend-link a.card-friend-item:hover {
-  background-color: var(--card-friend-item-hover);
-  border-radius: 12px;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-}
-.card-widget.card-friend-link img.card-friend-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin: 10px 10px;
-}
-.card-widget.card-friend-link .offline-friend-link img.card-friend-avatar {
-  filter: grayscale(100%);
-}
-.card-widget.card-friend-link .card-friend-details {
-  width: auto;
-  height: 60px;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
-  display: flex;
-  -webkit-box-lines: single;
-  -moz-box-lines: single;
-  -o-box-lines: single;
-  -webkit-flex-wrap: nowrap;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  -webkit-box-orient: vertical;
-  -moz-box-orient: vertical;
-  -o-box-orient: vertical;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-pack: center;
-  -moz-box-pack: center;
-  -o-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-box-align: start;
-  -moz-box-align: start;
-  -o-box-align: start;
-  -ms-flex-align: start;
-  -webkit-align-items: flex-start;
-  align-items: flex-start;
-}
-.card-widget.card-friend-link .card-friend-name {
-  color: var(--card-friend-name-color);
-}
-.card-widget.card-friend-link .card-friend-descr {
-  font-size: 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  width: 12em;
-  color: var(--card-friend-descr-color);
-}
 #post-comment .comment-head {
   margin-bottom: 20px;
 }
@@ -4410,7 +4292,7 @@ h1.page-title + .tag-cloud-list {
   position: absolute;
   top: calc(50% - 7px);
   color: #f47466;
-  content: '\f863';
+  content: '\0023';
   line-height: 1;
   -webkit-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
@@ -6502,21 +6384,21 @@ blockquote.pullquote.right {
 }
 /* root伪类指定全局颜色 */
 :root {
-  --blue-custom: #5ea6e5;
-  --loading-color: rgba(207, 246, 247, 0.92);
-  --border-color: #c9c9c9;
-  --color-red: rgb(241, 71, 71);
-  --color-orange: rgb(241, 162, 71);
-  --color-yellow: rgb(241, 238, 71);
-  --color-purple: rgb(179, 71, 241);
-  --color-blue: rgb(102, 204, 255);
-  --color-gray: rgb(226, 226, 226);
-  --color-green: rgb(57, 197, 187);
-  --color-whitegray: rgb(241, 241, 241);
-  --color-pink: rgb(237, 112, 155);
-  --color-black: rgb(0, 0, 0);
-  --color-darkblue: rgb(97, 100, 159);
-  --color-heoblue: rgb(66, 90, 239);
+  --blue-custom: #7ea6c5;       /* 柔和蓝 */
+  --loading-color: rgba(225, 245, 246, 0.92); /* 柔和加载色 */
+  --border-color: #d0d0d0;       /* 柔和边框灰 */
+  --color-red: rgb(233, 121, 121);   /* 柔和红 */
+  --color-orange: rgb(233, 181, 121); /* 柔和橙 */
+  --color-yellow: rgb(233, 233, 140); /* 柔和黄 */
+  --color-purple: rgb(168, 121, 220); /* 柔和紫 */
+  --color-blue: rgb(140, 180, 220);   /* 柔和蓝 */
+  --color-gray: rgb(210, 210, 210);   /* 柔和灰 */
+  --color-green: rgb(120, 190, 180);  /* 柔和绿 */
+  --color-whitegray: rgb(230, 230, 230); /* 柔和白灰 */
+  --color-pink: rgb(230, 150, 175);   /* 柔和粉 */
+  --color-black: rgb(40, 40, 40);     /* 柔和黑（深灰） */
+  --color-darkblue: rgb(120, 125, 170); /* 柔和深蓝 */
+  --color-heoblue: rgb(110, 135, 210);  /* 柔和海蓝 */
   --btn-bg: var(--theme-color) !important;
   --scrollbar-color: var(--theme-color) !important;
   --border-style: 1px solid rgba(169, 169, 169, 0.7);
@@ -6526,6 +6408,8 @@ blockquote.pullquote.right {
   --hltools-bg: #1c1c1c;
   /* 代码框背景色 */
   --hl-bg: #282c34;
+
+  --btn-hover-color: rgb(160, 230, 220);
 }
 
 /* 滚动条样式 */
@@ -6629,6 +6513,10 @@ div#menus {
 h1#site-title {
   font-size: 3em !important;
   font-weight: bold !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+div#site-subtitle {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 a.article-title,
 a.blog-slider__title,
@@ -6775,7 +6663,10 @@ div#archive {
 
 /* 头图隐藏 */
 #page-header {
-  background: transparent !important;
+  background-image: url(../../img/bg-light.jpg);
+  background-size: cover;
+  background-color: transparent;
+  background-repeat: no-repeat;
 }
 /* 夜间模式页脚遮罩隐藏 */
 [data-theme="dark"] #footer::before {
@@ -7208,8 +7099,8 @@ h3::before,
 h4::before,
 h5::before,
 h6::before {
-  -webkit-animation: ccc 4s linear infinite;
-  animation: ccc 4s linear infinite;
+  /*-webkit-animation: ccc 4s linear infinite;*/
+  /*animation: ccc 4s linear infinite;*/
 }
 /* 控制风车转动方向 -1turn 为逆时针转动，1turn 为顺时针转动，相同数字部分记得统一修改 */
 @-webkit-keyframes ccc {
@@ -7234,37 +7125,37 @@ h6::before {
 }
 /* 设置风车颜色 */
 #content-inner.layout h1::before {
-  color: #ef50a8;
+  color: var(--color-green);
   margin-left: -1.55rem;
   font-size: 1.3rem;
   margin-top: -0.23rem;
 }
 #content-inner.layout h2::before {
-  color: #fb7061;
+  color: var(--color-green);
   margin-left: -1.35rem;
   font-size: 1.1rem;
   margin-top: -0.12rem;
 }
 #content-inner.layout h3::before {
-  color: #ffbf00;
+  color: var(--color-green);
   margin-left: -1.22rem;
   font-size: 0.95rem;
   margin-top: -0.09rem;
 }
 #content-inner.layout h4::before {
-  color: #a9e000;
+  color: var(--color-green);
   margin-left: -1.05rem;
   font-size: 0.8rem;
   margin-top: -0.09rem;
 }
 #content-inner.layout h5::before {
-  color: #57c850;
+  color: var(--color-green);
   margin-left: -0.9rem;
   font-size: 0.7rem;
   margin-top: 0rem;
 }
 #content-inner.layout h6::before {
-  color: #5ec1e0;
+  color: var(--color-green);
   margin-left: -0.9rem;
   font-size: 0.66rem;
   margin-top: 0rem;
@@ -7276,7 +7167,7 @@ h6::before {
 #content-inner.layout h4:hover,
 #content-inner.layout h5:hover,
 #content-inner.layout h6:hover {
-  color: var(--theme-color) !important;
+  color: rgb(160, 230, 220) !important;
 }
 #content-inner.layout h1:hover::before,
 #content-inner.layout h2:hover::before,
@@ -7284,9 +7175,9 @@ h6::before {
 #content-inner.layout h4:hover::before,
 #content-inner.layout h5:hover::before,
 #content-inner.layout h6:hover::before {
-  color: var(--theme-color) !important;
-  -webkit-animation: ccc 6s linear infinite;
-  animation: ccc 6s linear infinite;
+  color: rgb(160, 230, 220) !important;
+  /*-webkit-animation: ccc 6s linear infinite;*/
+  /*animation: ccc 6s linear infinite;*/
 }
 
 /*哔哩哔哩视频适配*/
@@ -7773,7 +7664,7 @@ input#pic-link {
 
 /* heo 加载动画头像 */
 .loading-img {
-  background: url(https://tuchuang.voooe.cn/images/2023/01/02/avatar.webp)
+  background: url(../../img/about-EWL-gentle.png)
     no-repeat center center;
   background-size: cover;
 }
@@ -9280,105 +9171,31 @@ figure.highlight pre .deletion {
 [data-theme="light"] #post-info {
   animation: none !important;
 }
-
 @keyframes light_15px {
-  0% {
-    text-shadow: #5636ed 0 0 15px;
-  }
-  12.5% {
-    text-shadow: #11ee5e 0 0 15px;
-  }
-  25% {
-    text-shadow: #f14747 0 0 15px;
-  }
-  37.5% {
-    text-shadow: #f1a247 0 0 15px;
+  0%, 100% {
+    text-shadow: rgba(0, 0, 0, 0) 0 0 15px;
   }
   50% {
-    text-shadow: #f1ee47 0 0 15px;
-  }
-  50% {
-    text-shadow: #b347f1 0 0 15px;
-  }
-  62.5% {
-    text-shadow: #002afa 0 0 15px;
-  }
-  75% {
-    text-shadow: #ed709b 0 0 15px;
-  }
-  87.5% {
-    text-shadow: #39c5bb 0 0 15px;
-  }
-  100% {
-    text-shadow: #5636ed 0 0 15px;
+    text-shadow: rgba(255, 255, 255, 0.7) 0 0 15px;
   }
 }
-
 @keyframes light_10px {
-  0% {
-    text-shadow: #5636ed 0 0 10px;
-  }
-  12.5% {
-    text-shadow: #11ee5e 0 0 10px;
-  }
-  25% {
-    text-shadow: #f14747 0 0 10px;
-  }
-  37.5% {
-    text-shadow: #f1a247 0 0 10px;
+  0%, 100% {
+    text-shadow: rgba(0, 0, 0, 0) 0 0 10px;
   }
   50% {
-    text-shadow: #f1ee47 0 0 10px;
+    text-shadow: rgba(255, 255, 255, 0.7) 0 0 10px;
+  }
+}
+@keyframes light_5px {
+  0%, 100% {
+    text-shadow: rgba(0, 0, 0, 0) 0 0 5px;
   }
   50% {
-    text-shadow: #b347f1 0 0 10px;
-  }
-  62.5% {
-    text-shadow: #002afa 0 0 10px;
-  }
-  75% {
-    text-shadow: #ed709b 0 0 10px;
-  }
-  87.5% {
-    text-shadow: #39c5bb 0 0 10px;
-  }
-  100% {
-    text-shadow: #5636ed 0 0 10px;
+    text-shadow: rgba(255, 255, 255, 0.7) 0 0 5px;
   }
 }
 
-@keyframes light_5px {
-  0% {
-    text-shadow: #5636ed 0 0 5px;
-  }
-  12.5% {
-    text-shadow: #11ee5e 0 0 5px;
-  }
-  25% {
-    text-shadow: #f14747 0 0 5px;
-  }
-  37.5% {
-    text-shadow: #f1a247 0 0 15px;
-  }
-  50% {
-    text-shadow: #f1ee47 0 0 5px;
-  }
-  50% {
-    text-shadow: #b347f1 0 0 5px;
-  }
-  62.5% {
-    text-shadow: #002afa 0 0 5px;
-  }
-  75% {
-    text-shadow: #ed709b 0 0 5px;
-  }
-  87.5% {
-    text-shadow: #39c5bb 0 0 5px;
-  }
-  100% {
-    text-shadow: #5636ed 0 0 5px;
-  }
-}
 
 /* 夜间模式菜单栏发光字 0 0 1px var(--theme-color) */
 [data-theme="light"] .menu_word {
