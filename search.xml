@@ -4,6 +4,58 @@
   
     
     <entry>
+      <title>Flutter运行机制</title>
+      <link href="/posts/7fe6c37.html"/>
+      <url>/posts/7fe6c37.html</url>
+      
+        <content type="html"><![CDATA[<h1>Flutter运行机制</h1><h2 id="Widget树与渲染树">Widget树与渲染树</h2><p>Flutter中Widget树相当于一段不可变的渲染描述信息，Widget树会告诉Flutter如何渲染UI，而渲染树才是真正的渲染层次结构。</p><p>例如下列代码：</p><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="keyword">return</span> Column(</span><br><span class="line">    children: [</span><br><span class="line">      Text(<span class="string">&quot;Hello, Flutter&quot;</span>),</span><br><span class="line">      ElevatedButton(</span><br><span class="line">        onPressed: () &#123;&#125;,</span><br><span class="line">        child: Text(<span class="string">&quot;Click Me&quot;</span>),</span><br><span class="line">      ),</span><br><span class="line">    ],</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这里的Column及其子组件Text/ElevatesButton组成了一棵Widget树，这棵树会被Flutter解析为一个渲染树，随后渲染到屏幕上。<br>但这是一颗静态的树，如果我们需要动态更新UI，就需要使用StatefulWidget。</p><h2 id="StatefulWidget与StatelessWidget">StatefulWidget与StatelessWidget</h2><p>StatelessWidget很好理解，像上面那个例子，Text和ElevatedButton是不会改变的，所以我们可以使用StatelessWidget。<br>而内部包含可变状态的组件就是StatefulWidget，StatefulWidget内部包含一个State对象，这个State对象是可变的，可以通过setState方法来更新UI。<br>每当调用setState方法时，Flutter会调用State对象的build方法来重建UI，此时widget树会被重新构建，但渲染树不会被重新构建，渲染树只会被更新。</p><p>例如下列代码：</p><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyWidget</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  _MyWidgetState createState() =&gt; _MyWidgetState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_MyWidgetState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">MyWidget</span>&gt; </span>&#123;</span><br><span class="line">  <span class="built_in">int</span> _counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> _increment() &#123;</span><br><span class="line">    setState(() &#123;</span><br><span class="line">      _counter++;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Column(</span><br><span class="line">      children: [</span><br><span class="line">        Text(<span class="string">&quot;<span class="subst">$_counter</span>&quot;</span>),</span><br><span class="line">        ElevatedButton(</span><br><span class="line">          onPressed: _increment,</span><br><span class="line">          child: Text(<span class="string">&quot;Click Me&quot;</span>),</span><br><span class="line">        ),</span><br><span class="line">      ],</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>当widget树被创建后之后，用户通过点击事件更新_counter的值时，widget树会被重建，但是屏幕上的渲染树会通过diff对比发现，只有<br>Text中的值发生了变化，所以只有Text部分会被更新，而ElevatedButton部分不会被更新。这样的更新方式会极大地提高性能。</p><table><thead><tr><th style="text-align:center">比较</th><th style="text-align:center">Widget树</th><th style="text-align:center">渲染树</th></tr></thead><tbody><tr><td style="text-align:center">作用</td><td style="text-align:center">描述UI结构</td><td style="text-align:center">负责布局绘制</td></tr><tr><td style="text-align:center">可变性</td><td style="text-align:center">不可变</td><td style="text-align:center">可变</td></tr><tr><td style="text-align:center">更新</td><td style="text-align:center">重建</td><td style="text-align:center">更新</td></tr><tr><td style="text-align:center">关系</td><td style="text-align:center">用户编写</td><td style="text-align:center">Flutter维护</td></tr></tbody></table><h2 id="生命周期">生命周期</h2><p>statelessWidget显然没有太多的生命周期，所以这里的生命周期只和StatefulWidget有关。<br>常用的那几个生命周期方法如下：</p><ul><li>initState：初始化状态，只会调用一次</li><li>didChangeDependencies：当State对象的依赖发生变化时会被调用</li><li>build：构建Widget树</li><li>didUpdateWidget：当Widget重新构建时，Flutter会调用Widget.canUpdate来检测Widget树中同一位置的新旧节点，然后决定是否需要更新，如果Widget.canUpdate返回true则会调用此回调</li><li>deactivate：当State对象从树中被移除时会调用</li><li>dispose：当State对象从树中被永久移除时会调用</li><li>reassemble：热重载时会调用</li><li>setState：调用时会触发build方法</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Flutter </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Coding </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Flutter布局与页面相关内容</title>
+      <link href="/posts/27bdd189.html"/>
+      <url>/posts/27bdd189.html</url>
+      
+        <content type="html"><![CDATA[<h1>Flutter布局</h1><h2 id="基本布局组件">基本布局组件</h2><p>Flutter中的布局是通过组合各种Widget来实现的，这些Widget可以分为两类：容器类Widget和布局类Widget。</p><p>常用的容器类Widget包括Container、Padding、Center、Align等，而常用的布局类Widget包括Row、Column、Flex、Wrap、Flow、Stack等。<br>通过类比的方式，可以将Container类比到HTML中的div标签，而Padding则是一个用于设置内边距的Widget，Center和Align则类似于CSS中的居中布局；<br>同样的Row/Column/Flex等布局类Widget也可以类比到CSS中的flex布局方式； Wrap和Flow则是一种流式布局，可以用于实现流式布局效果；Stack字面意思是栈，其实可以类比到CSS中的相对/绝对定位布局方式，可以用于实现重叠布局效果。</p><h2 id="滚动组件">滚动组件</h2><p>Flutter中有很多滚动组件，如SingleChildScrollView、ListView、GridView等，这些组件都是继承自Scrollable类的，所以它们都有滚动的功能。<br>这里不一一列举，我自己在实际使用中用到的最多是Sliver系列的组件，如SliverAppBar、SliverList、SliverGrid等，这些组件可以用于实现复杂的滚动效果。</p><p>详细的使用方法我参考了<a href="https://book.flutterchina.club/chapter6/">可滚动组件</a>。</p><h2 id="约束与尺寸">约束与尺寸</h2><p>约束在CSS中是一个不太常见的概念，但在Flutter中是非常重要的，因为Flutter中的布局是通过约束来实现的。<br>在Flutter中，每个Widget都有一个约束条件，即其父Widget给它的约束条件，而每个Widget都有一个自己的尺寸，即其自身的尺寸。</p><p>详细的使用方法可以参考<a href="https://flutter.dev/docs/development/ui/layout/constraints">Flutter官方文档</a>。</p><h1>小总结</h1><p>我在写这一章内容的时候，其实仔细想想我并没有太多的输出，在实际开发过程中，无论是flex布局，还是grid布局，又或者是wrap等等，使用到第三方UI库的<br>情况是很多的，大概是我个人的开发习惯导致我并不是很喜欢Flutter的布局写法，在习惯了html+css的情况下，我觉得Flutter的布局写法有点繁琐，不够简洁，<br>不够直观，甚至有时候会有点反直觉。</p><p>但是介于是一个回顾，我还是把我个人认为比较重点的一些内容做了一下梳理。</p><p>以上~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Coding </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Flutter </tag>
+            
+            <tag> 布局 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Dart基础知识</title>
       <link href="/posts/87c1f066.html"/>
       <url>/posts/87c1f066.html</url>
@@ -60,7 +112,7 @@
       <link href="/posts/73f1e113.html"/>
       <url>/posts/73f1e113.html</url>
       
-        <content type="html"><![CDATA[<h1>为什么写</h1><p>在2024年中，我才正式开始接触flutter，在接下来接近大半年的时间里，我一直在学习并使用flutter<br>完成手头的项目。所以在2025年年初，我决定把去年大半年的学习过程整理一下。</p><h1>写什么</h1><p>主要划分为以下四个部分：</p><ol><li><p>Dart 基础知识（对比 JavaScript 的差异点）</p><ul><li>Dart 变量声明（var, final, const） vs JavaScript 的（let, const, var）</li><li>类型推导与显式声明</li><li>空安全（? 和 ! 操作符，nullable 类型）</li><li>异步编程</li><li>async, await, Future.delayed</li><li>Dart 异步执行时的 Isolate vs JavaScript 的 Web Worker</li><li>作用域与闭包</li><li>私有成员（_前缀）</li><li>类与对象</li><li>extends 和 implements</li><li>Dart 的 mixin</li><li>静态方法与实例方法</li><li>库与包管理</li></ul></li><li><p>Flutter 布局</p><ul><li>基本布局组件</li><li>Container, Column, Row, Stack, ListView，GridView</li><li>Column vs Row（水平和垂直布局）</li><li>Stack 布局和 Positioned 的使用</li><li>Expanded 和 Flexible 控制子元素的伸缩行为</li><li>Flex 布局</li><li>Flex（Column 和 Row 底层是 Flex）</li><li>如何控制子元素的 flex 值来分配空间</li><li>约束与尺寸</li><li>Constraints（Dart 的布局过程是基于约束的）</li><li>BoxConstraints，如何通过父布局的约束影响子元素大小</li><li>Align 和 Center，如何使子元素居中或定位</li><li>自定义布局</li><li>CustomPaint 和 CustomPainter 用于绘制自定义 UI</li><li>如何通过 RenderObject 自定义布局算法（如实现自定义滚动视图）</li><li>响应式布局</li><li>使用 MediaQuery 来获取屏幕尺寸和方向</li><li>LayoutBuilder 和 OrientationBuilder 来响应不同的屏幕尺寸变化</li><li>使用 flutter_screenutil 进行屏幕适配</li><li>国际化与本地化</li><li>使用 flutter_localizations 和 intl 进行多语言支持</li></ul></li><li><p>Flutter 运行机制</p><ul><li>Widget 树与渲染树</li><li>Widget 树：声明式 UI 构建方式，StatefulWidget 和 StatelessWidget 的区别</li><li>渲染树：如何从 Widget 树到实际渲染的层次结构（UI 渲染过程）</li><li>生命周期</li><li>StatefulWidget 生命周期：initState，build，didUpdateWidget，dispose</li><li>状态管理: riverPod的使用</li><li>组件重建机制：setState 的作用与调用方式</li><li>异步 UI 更新</li><li>Flutter 异步执行机制：FutureBuilder 和 StreamBuilder 的使用</li><li>如何通过 Future.delayed 或 Timer 延时更新 UI</li><li>内存管理与性能优化</li><li>如何理解 Flutter 的内存管理（如对象池、垃圾回收）</li><li>如何优化构建过程（如避免不必要的重建）</li><li>单线程与多线程（Isolate）对比</li></ul></li><li><p>Flutter 多端接入</p><ul><li>跨平台构建</li><li>插件与平台通道</li><li>Platform Channels：Flutter 与原生代码（Swift/Kotlin/Java）之间的通信</li><li>如何编写自定义插件与调试</li><li>使用已有插件（如摄像头、GPS、蓝牙等）</li><li>基于 Dart 和 Flutter 的热重载机制</li><li>Flutter 热更新的局限与实践</li></ul></li></ol><p>由于个人的知识水平限制，所以以上相关的内容可能会错漏，仅作自己学习沉淀使用，如有不合理、不严谨<br>或者错误的部分，敬请谅解。</p>]]></content>
+        <content type="html"><![CDATA[<h1>为什么写</h1><p>在2024年中，我才正式开始接触flutter，在接下来接近大半年的时间里，我一直在学习并使用flutter<br>完成手头的项目。所以在2025年年初，我决定把去年大半年的学习过程整理一下。</p><h1>写什么</h1><p>主要划分为以下四个部分：</p><ol><li><p>Dart 基础知识</p><ul><li>Dart 变量声明（var, final, const）</li><li>类型推导与显式声明</li><li>空安全（? 和 ! 操作符，nullable 类型）</li><li>异步编程</li><li>async, await, Future.delayed</li><li>Dart 异步执行时的 Isolate vs JavaScript 的 Web Worker</li><li>作用域与闭包</li><li>私有成员（_前缀）</li><li>类与对象</li><li>extends 和 implements</li><li>Dart 的 mixin</li><li>静态方法与实例方法</li><li>库与包管理</li></ul></li><li><p>Flutter 布局与页面相关内容</p><ul><li>基本布局组件</li><li>约束与尺寸</li></ul></li><li><p>Flutter 运行机制</p><ul><li>Widget树与渲染树<ul><li>Widget树：声明式 UI 构建方式，StatefulWidget 和 StatelessWidget 的区别</li><li>渲染树：如何从 Widget 树到实际渲染的层次结构（UI 渲染过程）</li></ul></li><li>生命周期<ul><li>StatefulWidget 生命周期：initState，build，didUpdateWidget，dispose</li></ul></li><li><s>(后面有空重新开一篇)状态管理: riverPod的使用</s></li></ul></li><li><p>Flutter 多端接入</p><ul><li>跨平台构建</li><li>插件与平台通道</li><li>Platform Channels：Flutter 与原生代码（Swift/Kotlin/Java）之间的通信</li><li>如何编写自定义插件与调试</li><li>使用已有插件（如摄像头、GPS、蓝牙等）</li><li>基于 Dart 和 Flutter 的热重载机制</li><li>Flutter 热更新的局限与实践</li></ul></li></ol><p>由于个人的知识水平限制，所以以上相关的内容可能会错漏，仅作自己学习沉淀使用，如有不合理、不严谨<br>或者错误的部分，敬请谅解。</p>]]></content>
       
       
       <categories>
