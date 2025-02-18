@@ -6,7 +6,7 @@
   <link href="https://ewl0829.github.io/atom.xml" rel="self"/>
   
   <link href="https://ewl0829.github.io/"/>
-  <updated>2025-02-13T03:30:11.415Z</updated>
+  <updated>2025-02-18T09:16:23.288Z</updated>
   <id>https://ewl0829.github.io/</id>
   
   <author>
@@ -15,6 +15,19 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>初识shorebird</title>
+    <link href="https://ewl0829.github.io/posts/ed98057a.html"/>
+    <id>https://ewl0829.github.io/posts/ed98057a.html</id>
+    <published>2025-02-18T09:16:23.000Z</published>
+    <updated>2025-02-18T09:16:23.288Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Flutter运行机制</title>
