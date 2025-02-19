@@ -6,7 +6,7 @@
   <link href="https://ewl0829.github.io/atom.xml" rel="self"/>
   
   <link href="https://ewl0829.github.io/"/>
-  <updated>2025-02-18T09:16:23.288Z</updated>
+  <updated>2025-02-19T09:00:33.886Z</updated>
   <id>https://ewl0829.github.io/</id>
   
   <author>
@@ -17,11 +17,63 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>关于xcframework是啥</title>
+    <link href="https://ewl0829.github.io/posts/67f505c4.html"/>
+    <id>https://ewl0829.github.io/posts/67f505c4.html</id>
+    <published>2025-02-19T09:00:16.000Z</published>
+    <updated>2025-02-19T09:00:33.886Z</updated>
+    
+    <content type="html"><![CDATA[<h1>xcframework 是什么</h1><p><code>xcframework</code> 是 <strong>Apple 引入的一种打包格式</strong>，用于在 <strong>Xcode</strong> 中分发和集成跨平台（iOS、macOS、watchOS、tvOS）库或框架。它旨在解决传统 <code>.framework</code> 的兼容性和维护问题。</p><hr><h2 id="一、xcframework-的背景和作用">一、<code>xcframework</code> 的背景和作用</h2><h3 id="1-背景">1. 背景</h3><p>在 <code>Xcode 11</code> 之前，开发者通常使用 <code>.framework</code> 格式分发静态或动态库，但 <code>.framework</code> 存在以下问题：</p><ul><li><strong>架构兼容性问题：</strong> 无法同时支持模拟器和真机，因为它们使用不同的 CPU 架构（如 x86_64、arm64）。</li><li><strong>跨平台支持复杂：</strong> 如果要支持多个 Apple 平台（如 iOS、macOS、tvOS 等），通常需要多个 <code>.framework</code> 文件。</li><li><strong>维护困难：</strong> 开发者需要为不同架构分别编译并手动合并（使用 <code>lipo</code> 工具），维护成本高。</li></ul><hr><h3 id="2-xcframework-的作用">2. <code>xcframework</code> 的作用</h3><ul><li><strong>多架构支持：</strong> 可以在同一个 <code>.xcframework</code> 包中包含多个架构（如 arm64、x86_64），同时支持真机和模拟器运行。</li><li><strong>跨平台支持：</strong> 可以同时包含多个平台的二进制文件，如 iOS、macOS、watchOS 和 tvOS。</li><li><strong>简化分发：</strong> 开发者无需手动合并和维护不同架构的库，Xcode 会根据目标设备自动选择合适的二进制文件。</li></ul><hr><h2 id="二、xcframework-的结构">二、<code>xcframework</code> 的结构</h2><p><code>xcframework</code> 是一个文件夹，内部包含多个平台和架构的子框架。例如：</p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MyLibrary<span class="selector-class">.xcframework</span></span><br><span class="line">├── Info<span class="selector-class">.plist</span></span><br><span class="line">├── ios-arm64_armv7</span><br><span class="line">│   └── MyLibrary<span class="selector-class">.framework</span></span><br><span class="line">├── ios-arm64_x86_64-simulator</span><br><span class="line">│   └── MyLibrary<span class="selector-class">.framework</span></span><br><span class="line">└── macos-arm64_x86_64</span><br><span class="line">    └── MyLibrary.framework</span><br></pre></td></tr></table></figure><ul><li><strong>Info.plist</strong>：描述 <code>xcframework</code> 的配置信息，包括支持的平台和架构。</li><li><strong>ios-arm64_armv7</strong>：包含 iOS 真机所需的架构（如 <code>arm64</code> 和 <code>armv7</code>）。</li><li><strong>ios-arm64_x86_64-simulator</strong>：包含 iOS 模拟器所需的架构（如 <code>x86_64</code> 和 <code>arm64</code>）。</li><li><strong>macos-arm64_x86_64</strong>：包含 macOS 的双架构支持（如 <code>arm64</code> 和 <code>x86_64</code>）。</li></ul><hr><h2 id="三、如何创建-xcframework">三、如何创建 <code>xcframework</code></h2><h3 id="1-使用-Xcode-命令行工具">1. 使用 Xcode 命令行工具</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">xcodebuild -create-xcframework \</span><br><span class="line">  -framework path/to/ios/MyLibrary.framework \</span><br><span class="line">  -framework path/to/ios-simulator/MyLibrary.framework \</span><br><span class="line">  -framework path/to/macos/MyLibrary.framework \</span><br><span class="line">  -output path/to/output/MyLibrary.xcframework</span><br></pre></td></tr></table></figure><ul><li><code>-create-xcframework</code>：指定创建 <code>xcframework</code>。</li><li><code>-framework</code>：指定要打包的 <code>.framework</code> 路径。</li><li><code>-output</code>：指定输出 <code>.xcframework</code> 文件的路径。</li></ul><hr><h3 id="2-示例：打包-iOS-和-iOS-模拟器框架">2. 示例：打包 iOS 和 iOS 模拟器框架</h3><p>假设已有两个 <code>.framework</code>：</p><ul><li><strong>iOS 真机</strong>：<code>path/to/ios/MyLibrary.framework</code>（<code>arm64</code> 架构）</li><li><strong>iOS 模拟器</strong>：<code>path/to/ios-simulator/MyLibrary.framework</code>（<code>x86_64</code> 和 <code>arm64</code> 架构）</li></ul><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xcodebuild -create-xcframework \</span><br><span class="line">  -framework path/to/ios/MyLibrary.framework \</span><br><span class="line">  -framework path/to/ios-simulator/MyLibrary.framework \</span><br><span class="line">  -output path/to/output/MyLibrary.xcframework</span><br></pre></td></tr></table></figure><hr><h3 id="3-在-Xcode-中集成-xcframework">3. 在 Xcode 中集成 <code>xcframework</code></h3><ul><li>打开 Xcode 项目，在 <strong>“General”</strong> 标签下的 <strong>“Frameworks, Libraries, and Embedded Content”</strong> 中点击 <code>+</code> 添加 <code>xcframework</code> 文件。</li><li>确保设置为 <strong>“Embed &amp; Sign”</strong>，以便在打包时包含到 App 中。</li></ul><hr><h2 id="四、xcframework-的优点">四、<code>xcframework</code> 的优点</h2><ol><li><strong>多平台支持</strong>：在一个文件中包含多个平台（iOS、macOS、watchOS、tvOS）的二进制文件。</li><li><strong>多架构支持</strong>：支持同时包含真机和模拟器架构，解决了 <code>.framework</code> 无法支持多个架构的问题。</li><li><strong>自动选择架构</strong>：Xcode 会根据目标设备和架构自动选择合适的二进制文件。</li><li><strong>简化维护</strong>：无需手动合并和维护多个 <code>.framework</code> 文件，减少 <code>lipo</code> 操作和脚本管理。</li></ol><hr><h2 id="五、对比-framework-和-xcframework">五、对比 <code>.framework</code> 和 <code>.xcframework</code></h2><table><thead><tr><th>比较项</th><th><code>.framework</code></th><th><code>.xcframework</code></th></tr></thead><tbody><tr><td><strong>多架构支持</strong></td><td>需要手动使用 <code>lipo</code> 合并</td><td>原生支持，自动选择合适架构</td></tr><tr><td><strong>跨平台支持</strong></td><td>每个平台需要单独的 <code>.framework</code> 文件</td><td>单一 <code>.xcframework</code> 支持多个平台</td></tr><tr><td><strong>维护成本</strong></td><td>高，需要手动管理架构和平台</td><td>低，Xcode 自动管理</td></tr><tr><td><strong>兼容性</strong></td><td>仅适用于某一平台</td><td>支持 iOS、macOS、watchOS、tvOS 等多平台</td></tr><tr><td><strong>推荐版本</strong></td><td>Xcode 11 及以下使用</td><td>Xcode 11 及以上推荐使用</td></tr></tbody></table><hr><h2 id="六、注意事项">六、注意事项</h2><ol><li><strong>Xcode 版本要求</strong>：<code>xcframework</code> 在 <strong>Xcode 11 及以上版本</strong> 才被完全支持。</li><li><strong>CocoaPods 支持</strong>：CocoaPods 已支持 <code>xcframework</code> 的集成，但需要 <code>podspec</code> 文件中声明为 <code>vendored_frameworks</code>。</li><li><strong>Carthage 支持</strong>：<code>Carthage</code> 从 <code>0.38.0</code> 开始支持 <code>xcframework</code>。</li><li><strong>SPM 支持</strong>：<code>Swift Package Manager</code> 原生支持 <code>xcframework</code>。</li></ol><hr><h2 id="七、总结">七、总结</h2><ul><li><code>xcframework</code> 是 Apple 推荐的框架打包格式，<strong>解决了传统 <code>.framework</code> 的架构兼容性和跨平台维护难题</strong>。</li><li>适用于需要同时支持 <strong>真机和模拟器</strong> 或 <strong>多个 Apple 平台</strong> 的场景。</li><li>推荐在 <strong>Xcode 11 及以上版本</strong> 中使用 <code>xcframework</code> 进行三方库或自定义库的打包和分发。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;xcframework 是什么&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;xcframework&lt;/code&gt; 是 &lt;strong&gt;Apple 引入的一种打包格式&lt;/strong&gt;，用于在 &lt;strong&gt;Xcode&lt;/strong&gt; 中分发和集成跨平台（iOS、macOS、watch</summary>
+      
+    
+    
+    
+    <category term="Coding" scheme="https://ewl0829.github.io/categories/Coding/"/>
+    
+    
+    <category term="iOS" scheme="https://ewl0829.github.io/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>尝试理解一下iOS依赖(bushi</title>
+    <link href="https://ewl0829.github.io/posts/cbc4bfa3.html"/>
+    <id>https://ewl0829.github.io/posts/cbc4bfa3.html</id>
+    <published>2025-02-19T08:07:03.000Z</published>
+    <updated>2025-02-19T09:01:59.163Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在捣鼓flutter相关的一些东西时，一到原生层面的一些东西就直接开始头脑发昏，所以临时决定开个新坑，记录一下。</p><h2 id="iOS依赖相关的一些我真的没太懂的东西">iOS依赖相关的一些我真的没太懂的东西</h2><ul><li><a href="2025-02-19-%E5%85%B3%E4%BA%8Excframework%E6%98%AF%E5%95%A5.md">xcframework是什么啊</a>（🤦🏻‍♀️</li><li>cocoapods怎么简单用一下（TBD❓</li><li>podspec又是什么（TBD❓</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;最近在捣鼓flutter相关的一些东西时，一到原生层面的一些东西就直接开始头脑发昏，所以临时决定开个新坑，记录一下。&lt;/p&gt;
+&lt;h2 id=&quot;iOS依赖相关的一些我真的没太懂的东西&quot;&gt;iOS依赖相关的一些我真的没太懂的东西&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;20</summary>
+      
+    
+    
+    
+    <category term="Coding" scheme="https://ewl0829.github.io/categories/Coding/"/>
+    
+    
+    <category term="iOS" scheme="https://ewl0829.github.io/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>初识shorebird</title>
     <link href="https://ewl0829.github.io/posts/ed98057a.html"/>
     <id>https://ewl0829.github.io/posts/ed98057a.html</id>
     <published>2025-02-18T09:16:23.000Z</published>
-    <updated>2025-02-18T09:16:23.288Z</updated>
+    <updated>2025-02-18T09:16:40.302Z</updated>
     
     
     
@@ -61,9 +113,9 @@
     <link href="https://ewl0829.github.io/posts/27bdd189.html"/>
     <id>https://ewl0829.github.io/posts/27bdd189.html</id>
     <published>2025-02-13T02:40:30.000Z</published>
-    <updated>2025-02-13T03:04:10.029Z</updated>
+    <updated>2025-02-19T08:13:53.487Z</updated>
     
-    <content type="html"><![CDATA[<h1>Flutter布局</h1><h2 id="基本布局组件">基本布局组件</h2><p>Flutter中的布局是通过组合各种Widget来实现的，这些Widget可以分为两类：容器类Widget和布局类Widget。</p><p>常用的容器类Widget包括Container、Padding、Center、Align等，而常用的布局类Widget包括Row、Column、Flex、Wrap、Flow、Stack等。<br>通过类比的方式，可以将Container类比到HTML中的div标签，而Padding则是一个用于设置内边距的Widget，Center和Align则类似于CSS中的居中布局；<br>同样的Row/Column/Flex等布局类Widget也可以类比到CSS中的flex布局方式； Wrap和Flow则是一种流式布局，可以用于实现流式布局效果；Stack字面意思是栈，其实可以类比到CSS中的相对/绝对定位布局方式，可以用于实现重叠布局效果。</p><h2 id="滚动组件">滚动组件</h2><p>Flutter中有很多滚动组件，如SingleChildScrollView、ListView、GridView等，这些组件都是继承自Scrollable类的，所以它们都有滚动的功能。<br>这里不一一列举，我自己在实际使用中用到的最多是Sliver系列的组件，如SliverAppBar、SliverList、SliverGrid等，这些组件可以用于实现复杂的滚动效果。</p><p>详细的使用方法我参考了<a href="https://book.flutterchina.club/chapter6/">可滚动组件</a>。</p><h2 id="约束与尺寸">约束与尺寸</h2><p>约束在CSS中是一个不太常见的概念，但在Flutter中是非常重要的，因为Flutter中的布局是通过约束来实现的。<br>在Flutter中，每个Widget都有一个约束条件，即其父Widget给它的约束条件，而每个Widget都有一个自己的尺寸，即其自身的尺寸。</p><p>详细的使用方法可以参考<a href="https://flutter.dev/docs/development/ui/layout/constraints">Flutter官方文档</a>。</p><h1>小总结</h1><p>我在写这一章内容的时候，其实仔细想想我并没有太多的输出，在实际开发过程中，无论是flex布局，还是grid布局，又或者是wrap等等，使用到第三方UI库的<br>情况是很多的，大概是我个人的开发习惯导致我并不是很喜欢Flutter的布局写法，在习惯了html+css的情况下，我觉得Flutter的布局写法有点繁琐，不够简洁，<br>不够直观，甚至有时候会有点反直觉。</p><p>但是介于是一个回顾，我还是把我个人认为比较重点的一些内容做了一下梳理。</p><p>以上~</p>]]></content>
+    <content type="html"><![CDATA[<h1>Flutter布局</h1><h2 id="基本布局组件">基本布局组件</h2><p>Flutter中的布局是通过组合各种Widget来实现的，这些Widget可以分为两类：容器类Widget和布局类Widget。</p><p>常用的容器类Widget包括Container、Padding、Center、Align等，而常用的布局类Widget包括Row、Column、Flex、Wrap、Flow、Stack等。<br>通过类比的方式，可以将Container类比到HTML中的div标签，而Padding则是一个用于设置内边距的Widget，Center和Align则类似于CSS中的居中布局；<br>同样的Row/Column/Flex等布局类Widget也可以类比到CSS中的flex布局方式； Wrap和Flow则是一种流式布局，可以用于实现流式布局效果；Stack字面意思   是栈，其实可以类比到CSS中的相对/绝对定位布局方式，可以用于实现重叠布局效果。</p><h2 id="滚动组件">滚动组件</h2><p>Flutter中有很多滚动组件，如SingleChildScrollView、ListView、GridView等，这些组件都是继承自Scrollable类的，所以它们都有滚动的功能。<br>这里不一一列举，我自己在实际使用中用到的最多是Sliver系列的组件，如SliverAppBar、SliverList、SliverGrid等，这些组件可以用于实现复杂的滚动效果。</p><p>详细的使用方法我参考了<a href="https://book.flutterchina.club/chapter6/">可滚动组件</a>。</p><h2 id="约束与尺寸">约束与尺寸</h2><p>约束在CSS中是一个不太常见的概念，但在Flutter中是非常重要的，因为Flutter中的布局是通过约束来实现的。<br>在Flutter中，每个Widget都有一个约束条件，即其父Widget给它的约束条件，而每个Widget都有一个自己的尺寸，即其自身的尺寸。</p><p>详细的使用方法可以参考<a href="https://flutter.dev/docs/development/ui/layout/constraints">Flutter官方文档</a>。</p><h1>小总结</h1><p>我在写这一章内容的时候，其实仔细想想我并没有太多的输出，在实际开发过程中，无论是flex布局，还是grid布局，又或者是wrap等等，使用到第三方UI库的<br>情况是很多的，大概是我个人的开发习惯导致我并不是很喜欢Flutter的布局写法，在习惯了html+css的情况下，我觉得Flutter的布局写法有点繁琐，不够简洁，<br>不够直观，甚至有时候会有点反直觉。</p><p>但是介于是一个回顾，我还是把我个人认为比较重点的一些内容做了一下梳理。</p><p>以上~</p>]]></content>
     
     
       
